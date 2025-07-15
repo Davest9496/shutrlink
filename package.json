@@ -1,0 +1,39 @@
+{
+  "name": "shutrlink",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A URL shortener with image preview functionality",
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\" \"npm run dev:shared\"",
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:shared": "npm run dev --workspace=shared",
+    "build": "npm run build --workspace=shared && npm run build --workspace=client && npm run build --workspace=server",
+    "clean": "npm run clean --workspace=client && npm run clean --workspace=server && npm run clean --workspace=shared",
+    "type-check": "npm run type-check --workspace=client && npm run type-check --workspace=server && npm run type-check --workspace=shared",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "concurrently": "^8.2.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md}": [
+      "echo 'Running pre-commit checks...'",
+      "npm run type-check"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
